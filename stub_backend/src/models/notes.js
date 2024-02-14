@@ -6,5 +6,5 @@ const notesSchema = new Schema({
   description: { type: String },
 });
 
-const NotesModel = new model("Notes", notesSchema);
+const NotesModel = model("Notes", notesSchema);
 export default NotesModel;

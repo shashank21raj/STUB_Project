@@ -6,5 +6,5 @@ const todoSchema = new Schema({
   completed: { type: Boolean, default: false },
 });
 
-const TodoModel = new model("Todo", todoSchema);
+const TodoModel = model("Todo", todoSchema);
 export default TodoModel;
