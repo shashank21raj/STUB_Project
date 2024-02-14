@@ -22,7 +22,7 @@ export const getTodoById = async (req, res) => {
   }
 };
 
-//Post Notes
+//Post Todos
 export const createTodo = async (req, res) => {
   try {
     const newTodo = new TodoModel(req.body);
@@ -33,7 +33,7 @@ export const createTodo = async (req, res) => {
   }
 };
 
-//Update the Notes by Id
+//Update the Todos by Id
 export const updateTodo = async (req, res) => {
   try {
     const id = req.params.id;
@@ -47,7 +47,7 @@ export const updateTodo = async (req, res) => {
   }
 };
 
-// Delete the Note by Id
+// Delete the Todo by Id
 export const deleteTodo = async (req, res) => {
   try {
     const deleteTodo = await TodoModel.findByIdAndDelete(req.params.id);
