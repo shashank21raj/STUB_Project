@@ -5,10 +5,10 @@ import mongoose from "mongoose";
 import methodOverride from "method-override";
 
 import userRoute from "./src/routes/user.js";
-import todoRoute from "./src/routes/user.js";
-import notesRoute from "./src/routes/user.js";
-import roadmapRoute from "./src/routes/user.js";
-import placementRoute from "./src/routes/user.js";
+import todoRoute from "./src/routes/todo.js";
+import notesRoute from "./src/routes/notes.js";
+import roadmapRoute from "./src/routes/roadmap.js";
+import placementRoute from "./src/routes/placement.js";
 
 dotenv.config();
 const app = express();
