@@ -1,4 +1,11 @@
 import express from "express";
+import {
+  getAllPlacement,
+  getPlacementById,
+  updatePlacement,
+  deletePlacement,
+  createPlacement,
+} from "../controller/placement.js";
 const router = express.Router();
 
 router.get("/", getAllPlacement);
