@@ -15,7 +15,12 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const mongo_url = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/STUB";
 
-app.use(cors());
+app.use(
+  cors({
+    credentials: true,
+    origin: "http://localhost:3000",
+  })
+);
 app.use(express.json());
 app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
