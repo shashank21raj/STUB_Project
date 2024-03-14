@@ -1,24 +1,27 @@
 import Navbar from "./Nav";
 import Todo from "./todo";
 import Notes from "./notes";
-import Calender from "./calender";
+import Quote  from "./Quote";
 import Footer from "./footer";
 export default function Homepage() {
   return (
     <>
-      <Navbar />
-      <div className="grid grid-cols-2">
-        <div className=" mx-4 row-span-2 mt-2">
-          <Notes />
+      <div className="bg-slate-950">
+        <div className="m-0 p-0 flex">
+          <div className="bg-slate-900 h-[87vh] w-3/6 m-2 rounded-2xl">
+            <Notes />
+          </div>
+          <div className="w-3/6">
+            <div className="bg-slate-950 h-[30vh] m-2 rounded-2xl">
+              <Quote />
+            </div>
+            <div className="bg-slate-900 h-[56vh] m-2 rounded-2xl overflow-auto no-scrollbar">
+              <Todo />
+            </div>
+          </div>
         </div>
-        <div className="mt-2 mx-4">
-          <Calender />
-        </div>
-        <div className="mx-4 mt-2">
-          <Todo />
-        </div>
+        <Footer />
       </div>
-      <Footer />
     </>
   );
 }
