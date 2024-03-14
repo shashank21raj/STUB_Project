@@ -1,4 +1,3 @@
-import Navbar from "./Nav";
 import Todo from "./todo";
 import Notes from "./notes";
 import Quote  from "./Quote";
