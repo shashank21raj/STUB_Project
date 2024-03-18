@@ -3,7 +3,8 @@ import NotesModel from "../models/notes.js";
 //Get all the Notes
 export const getAllNotes = async (req, res) => {
   try {
-    const allNotes = await NotesModel.find();
+    const notes = req.body;
+    const allNotes = await NotesModel.find().where("_id").in(notes).exec();
     res.json(allNotes);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -38,7 +39,9 @@ export const createNotes = async (req, res) => {
 export const updateNotes = async (req, res) => {
   try {
     const id = req.params.id;
-    const updatedNote = await NotesModel.findByIdAndUpdate(id, req.body,{new:true});
+    const updatedNote = await NotesModel.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
     if (!updatedNote) {
       res.status(404).json({ message: "Note not found" });
     }
