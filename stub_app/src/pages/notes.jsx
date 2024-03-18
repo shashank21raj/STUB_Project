@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import NoteEdit from "../components/NoteEdit";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUser } from "../redux/reducer/userSlice";
+
 export default function Notes() {
   const [toggle, setToggle] = useState(false);
   const [notes, setNotes] = useState([]);
   const [toUpdate, setToUpdate] = useState({});
-
+  const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   useEffect(() => {
-    axios.get("/notes").then((response) => {
+    axios.post("/notes", currentUser.notes).then((response) => {
       setNotes(response.data);
     });
   }, []);
@@ -19,8 +23,16 @@ export default function Notes() {
       description: "",
     };
     try {
-      const resp = await axios.post("/notes", newNote);
+      const resp = await axios.post(`/notes/t`, newNote);
       const addedNote = resp.data;
+      axios
+        .put(`/user/notes/${currentUser._id}`, {
+          NotesId: addedNote._id,
+        })
+        .then((response) => {
+          console.log(response);
+          dispatch(updateUser(response.data));
+        });
       setNotes([...notes, addedNote]);
     } catch (error) {
       console.log("Error creating Note", error);
