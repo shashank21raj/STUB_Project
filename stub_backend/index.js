@@ -4,11 +4,12 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import methodOverride from "method-override";
 
-import userRoute from "./src/routes/user.js";
+import authRoute from "./src/routes/auth.js";
 import todoRoute from "./src/routes/todo.js";
 import notesRoute from "./src/routes/notes.js";
 import roadmapRoute from "./src/routes/roadmap.js";
 import placementRoute from "./src/routes/placement.js";
+import userRoute from "./src/routes/user.js";
 
 dotenv.config();
 const app = express();
@@ -25,11 +26,12 @@ app.use(express.json());
 app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/user", userRoute);
+app.use("/auth", authRoute);
 app.use("/todo", todoRoute);
 app.use("/notes", notesRoute);
 app.use("/roadmap", roadmapRoute);
 app.use("/placement", placementRoute);
+app.use("/user", userRoute);
 
 mongoose
   .connect(mongo_url)
