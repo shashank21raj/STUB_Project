@@ -2,7 +2,8 @@ import TodoModel from "../models/todo.js";
 //Get all the Todo
 export const getAllTodo = async (req, res) => {
   try {
-    const allTodo = await TodoModel.find();
+    const todo = req.body;
+    const allTodo = await TodoModel.find().where("_id").in(todo).exec();
     res.json(allTodo);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -37,7 +38,9 @@ export const createTodo = async (req, res) => {
 export const updateTodo = async (req, res) => {
   try {
     const id = req.params.id;
-    const updatedTodo = await TodoModel.findByIdAndUpdate(id, req.body,{new:true});
+    const updatedTodo = await TodoModel.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
     if (!updatedTodo) {
       res.status(404).json({ message: "Note not found" });
     }
