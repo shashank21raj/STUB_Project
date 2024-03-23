@@ -1,12 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUser } from "../redux/reducer/userSlice";
 export default function Todo() {
   const [todos, setTodo] = useState([]);
   const [edit, setEdit] = useState(false);
   const [target, setTarget] = useState(false);
+  const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    axios.get("/todo").then((response) => {
+    axios.post("/todo", currentUser.todos).then((response) => {
       setTodo(response.data);
     });
   }, []);
@@ -18,8 +22,16 @@ export default function Todo() {
       completed: false,
     };
     try {
-      const response = await axios.post("/todo", newTodo);
+      const response = await axios.post("/todo/t", newTodo);
       const addedTodo = response.data;
+      axios
+        .put(`/user/todo/${currentUser._id}`, {
+          Todoid: addedTodo._id,
+        })
+        .then((response) => {
+          console.log(response);
+          dispatch(updateUser(response.data));
+        });
       setTodo([...todos, addedTodo]);
     } catch (error) {
       console.error("Error adding todo:", error);
@@ -44,9 +56,14 @@ export default function Todo() {
 
   async function deleteTodo(id) {
     try {
-      const response = await axios.delete(`/todo/${id}`);
-      const updatedTodos = todos.filter((todo) => todo._id !== id);
-      setTodo(updatedTodos);
+      await axios.delete(`/todo/${id}`);
+      const updatedTodo = todos.filter((todo) => todo._id !== id);
+      const response = await axios.put(
+        `/user/todo/d/${currentUser._id}`,
+        updatedTodo
+      );
+      setTodo(updatedTodo);
+      dispatch(updateUser(response.data));
     } catch (error) {
       console.error("Error deleting todo:", error);
     }

@@ -40,8 +40,15 @@ export default function Notes() {
   }
 
   async function deleteNote(id) {
+    let updatedNote = [];
     try {
       await axios.delete(`/notes/${id}`);
+      updatedNote = notes.filter((note) => note._id !== id);
+      const response = await axios.put(
+        `/user/notes/d/${currentUser._id}`,
+        updatedNote
+      );
+      dispatch(updateUser(response.data));
       setNotes(notes.filter((note) => note._id !== id));
     } catch (error) {
       console.log("Error deleting Note", error);
