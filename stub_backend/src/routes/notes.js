@@ -8,9 +8,9 @@ import {
 } from "../controller/notes.js";
 const router = express.Router();
 
-router.get("/", getAllNotes);
+router.post("/", getAllNotes);
 router.get("/:id", getNotesById);
-router.post("/", createNotes);
+router.post("/t", createNotes);
 router.put("/:id", updateNotes);
 router.delete("/:id", deleteNotes);
 

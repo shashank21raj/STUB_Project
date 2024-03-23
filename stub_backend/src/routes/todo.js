@@ -8,9 +8,9 @@ import {
 } from "../controller/todo.js";
 const router = express.Router();
 
-router.get("/", getAllTodo);
+router.post("/", getAllTodo);
 router.get("/:id", getTodoById);
-router.post("/", createTodo);
+router.post("/t", createTodo);
 router.put("/:id", updateTodo);
 router.delete("/:id", deleteTodo);
 
